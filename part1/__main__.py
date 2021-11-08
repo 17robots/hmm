@@ -27,18 +27,18 @@ def func(filename):
     grid = [[1/(nLength*nLength) for x in range(nLength)] for y in range(nLength)]
 
     for index, row in steps.iterrows():
+        print(grid)
         for i in range(nLength):
             for j in range(nLength):
                 # calculate the probability of the step
                 prob = normal_prob(row['eDist'], dist(row['agentX'], row['agentY'], i, j))
-                if( i == 0 and j == 9):
-                    print('emitted distance', row['eDist'],'actual distance', dist(row['agentX'], row['agentY'], i, j))
-                    print('prob', prob)
-                    print('grid', grid[i][j])
-
                 grid[i][j] = grid[i][j] * prob
                 
-        total = sum([sum(row) for row in grid])
+        total = 0
+        for i in range(nLength):
+            for j in range(nLength):
+                total = total + grid[i][j] 
+
         for i in range(nLength):
             for j in range(nLength):
                 grid[i][j] = grid[i][j] / total 
